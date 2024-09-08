@@ -5,6 +5,7 @@ import { LoginDto } from "./dto/login-user.dto";
 import { JwtService } from "@nestjs/jwt"; 
 import { Users } from "src/users/users.model";
 import * as bcrypt from 'bcrypt';
+import { RegisterUsersDto } from "./dto/register-user.dto";
 
 @Injectable()
 export class AuthService {
@@ -26,5 +27,17 @@ export class AuthService {
         if (!user) {
             throw new NotFoundException('user not found');
         }
+        return {
+            token: this.jwtService.sign({username})
+        }
 }
+ 
+    async register (createDto: RegisterUsersDto): Promise<any>{
+        const createUsers = new Users()
+        const create
+        return {
+            token: this.jwtService.sign({})
+        }
+    } 
+
 }
