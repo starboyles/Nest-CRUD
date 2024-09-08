@@ -34,7 +34,13 @@ export class AuthService {
  
     async register (createDto: RegisterUsersDto): Promise<any>{
         const createUsers = new Users()
-        const create
+        createUsers.name = createDto.name
+        createUsers.email = createDto.email
+        createUsers.username = createDto.username
+        createUsers.password = await bcrypt.hash(createDto.password, 10)
+
+        const user = await this.usersService
+
         return {
             token: this.jwtService.sign({})
         }
