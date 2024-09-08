@@ -1,4 +1,4 @@
-import { ExecutionContext } from "@nestjs/common"
+import { ExecutionContext, UnauthorizedException } from "@nestjs/common"
 import { AuthGuard } from "@nestjs/passport"
 import { Observable } from "rxjs"
 
@@ -6,5 +6,12 @@ import { Observable } from "rxjs"
 export class JWTauthGuard extends AuthGuard('jwt') {
     canActivate(context: ExecutionContext){
         return super.canActivate(context)
+    }
+    handleRequest (err, user, info){
+        if (err || !user) {
+            throw err || new UnauthorizedException();
+        }
+        return user
+        
     }
 }
