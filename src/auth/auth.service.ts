@@ -1,8 +1,10 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { PrismaService } from "src/prisma.service";
 import { UsersService } from "src/users/users.service";
 import { LoginDto } from "./dto/login-user.dto";
-import { JwtService } from "@nestjs/jwt"; // Replace "path/to/jwt.service" with the actual path to the JWTService module
+import { JwtService } from "@nestjs/jwt"; 
+import { Users } from "src/users/users.model";
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -12,5 +14,17 @@ export class AuthService {
         private jwtService: JwtService,
         private readonly usersService: UsersService) {}
 
-        async login(loginDto: LoginDto): 
+        async login(loginDto: LoginDto):Promise<any>{
+            const {username, password} = loginDto;
+            const user = await this.prismaService.user.findUnique({
+                where: {username}
+            })
+            if (!user) {
+                throw new NotFoundException('user not found');
+            }
+        const validatePassword = await bcrypt.compare(password, user.password)
+        if (!user) {
+            throw new NotFoundException('user not found');
+        }
+}
 }
