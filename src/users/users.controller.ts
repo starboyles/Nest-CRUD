@@ -1,10 +1,11 @@
-import { Req, Res } from '@nestjs/common';
+import { Controller, Get, Req, Res } from '@nestjs/common';
 import { UsersService } from "./users.service";
 import { Request, Response } from 'express';
 
+@Controller('users') 
 export class UsersController {
     constructor(private readonly userService: UsersService){}
-
+    @Get()
     async getAllUsers(@Req() request:Request , @Res() response:Response ):Promise<any> {
         try {
             const result = await this.userService.getAllUser();
