@@ -7,11 +7,11 @@ export class UsersService {
     constructor (private prisma: PrismaService) {}
 
     async getAllUser():Promise<Users[]> {
-        return this.prisma.user.findMany();
+        return this.prisma.users.findMany();
     } 
 
     async createUser(data:Users): Promise<Users>{
-        const existing = await this.prisma.user.findUnique({
+        const existing = await this.prisma.users.findUnique({
             where: {
                 username: data.username
             }
@@ -20,7 +20,7 @@ export class UsersService {
         if (existing) {
             throw new ConflictException('username already exists');
         }
-        return this.prisma.user.create({
+        return this.prisma.users.create({
             data
         })
 
