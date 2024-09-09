@@ -1,6 +1,10 @@
 import { PrismaService } from 'src/prisma.service';
 import { Users } from './users.model';
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { UpdateUserDto } from 'src/auth/dto/update-user.dto';
 
 @Injectable()
