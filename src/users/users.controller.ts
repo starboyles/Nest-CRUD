@@ -27,7 +27,7 @@ export class UsersController {
     @Get(':id')
     async getUserById(@Param('id') id: string, @Res() response: Response): Promise<any> {
       try {
-        const numericId = parseInt(id, 10); // Convert id to number
+        const numericId = parseInt(id, 10); 
         const result = await this.userService.getUserById(numericId);
         if (!result) {
           throw new NotFoundException('User not found');
