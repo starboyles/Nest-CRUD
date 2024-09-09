@@ -11,6 +11,12 @@ export class AuthController {
         @Post()
         async login(@Req() request:Request , @Res() response: Response, @Body() loginDto: LoginDto):Promise<any>{
             try {
+                const result = await this.authService.login(loginDto);
+                return response.status(200).json({
+                    status: 'ok',
+                    message: "Login Successful",
+                    result: result
+                })
                 
             } catch (err) {
                 
